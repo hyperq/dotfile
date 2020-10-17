@@ -1,0 +1,113 @@
+"======================================================================
+"
+" init-plugins.vim - 
+"
+" Created by skywind on 2018/05/31
+" Last Modified: 2018/06/10 23:11
+"
+"======================================================================
+" vim: set ts=4 sw=4 tw=78 noet :
+
+
+
+"----------------------------------------------------------------------
+" 默认情况下的分组，可以再前面覆盖之
+"----------------------------------------------------------------------
+if !exists('g:bundle_group')
+	let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
+	let g:bundle_group += ['tags', 'airline', 'nerdtree', 'ale', 'echodoc']
+	let g:bundle_group += ['leaderf']
+endif
+
+
+"----------------------------------------------------------------------
+" 计算当前 vim-init 的子路径
+"----------------------------------------------------------------------
+let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
+
+function! s:path(path)
+	let path = expand(s:home . '/' . a:path )
+	return substitute(path, '\\', '/', 'g')
+endfunc
+
+
+"----------------------------------------------------------------------
+" 在 ~/.vim/bundles 下安装插件
+"----------------------------------------------------------------------
+call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
+
+
+"----------------------------------------------------------------------
+" 默认插件 
+"----------------------------------------------------------------------
+
+" 全文快速移动，<leader><leader>f{char} 即可触发
+Plug 'easymotion/vim-easymotion'
+
+"----------------------------------------------------------------------
+" 基础插件
+"----------------------------------------------------------------------
+	" Git 支持
+Plug 'tpope/vim-fugitive'
+
+"----------------------------------------------------------------------
+" 增强插件
+"----------------------------------------------------------------------
+
+	" 快速文件搜索
+Plug 'junegunn/fzf'
+
+
+"----------------------------------------------------------------------
+" airline
+"----------------------------------------------------------------------
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'rakr/vim-one'
+let g:airline_theme='one'
+let g:one_allow_italics = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_powerline_fonts = 0
+let g:airline_exclude_preview = 1
+let g:airline_section_b = '%n'
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#fugitiveline#enabled = 0
+let g:airline#extensions#csv#enabled = 0
+let g:airline#extensions#vimagit#enabled = 0
+
+
+
+"----------------------------------------------------------------------
+" NERDTree
+"----------------------------------------------------------------------
+Plug 'preservim/nerdtree' 
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ryanoasis/vim-devicons'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" 进入的时候打开
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+" 隐藏 []
+let g:NERDTreeGitStatusConcealBrackets = 1 
+let g:nerdtree_tabs_open_on_console_startup=1
+map <Leader>n <plug>NERDTreeTabsToggle<CR>  
+"----------------------------------------------------------------------
+" go
+"----------------------------------------------------------------------
+
+
+
+"----------------------------------------------------------------------
+" 结束插件安装
+"----------------------------------------------------------------------
+call plug#end()
+
