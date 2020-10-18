@@ -43,7 +43,8 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " 全文快速移动，<leader><leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
-
+Plug 'terryma/vim-multiple-cursors'
+Plug 'Raimondi/delimitMate'
 "----------------------------------------------------------------------
 " 基础插件
 "----------------------------------------------------------------------
