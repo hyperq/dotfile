@@ -43,13 +43,21 @@ call plug#begin(get(g:, 'bundle_home', '~/.vim/bundles'))
 
 " 全文快速移动，<leader><leader>f{char} 即可触发
 Plug 'easymotion/vim-easymotion'
+" 多行编辑功能
 Plug 'terryma/vim-multiple-cursors'
+" 自动括号 双引号
 Plug 'Raimondi/delimitMate'
+" 对齐
+Plug 'godlygeek/tabular'
+" markdown 支持
+Plug 'plasticboy/vim-markdown'
 "----------------------------------------------------------------------
 " 基础插件
 "----------------------------------------------------------------------
 	" Git 支持
 Plug 'tpope/vim-fugitive'
+set statusline+=%{FugitiveStatusline()}
+" 记录上次编辑信息  
 Plug 'tpope/vim-obsession'
 
 "----------------------------------------------------------------------
@@ -67,6 +75,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'rakr/vim-one'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'cormacrelf/vim-colors-github'
 let g:airline_theme='one'
 let g:one_allow_italics = 1
 let g:airline_left_sep = ''
@@ -81,8 +90,9 @@ let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#fugitiveline#enabled = 0
 let g:airline#extensions#csv#enabled = 0
 let g:airline#extensions#vimagit#enabled = 0
+let g:github_colors_soft = 1
 
-
+" 设置颜色主题，会在所有 runtimepaths 的 colors 目录寻找同名配置
 
 "----------------------------------------------------------------------
 " NERDTree
@@ -101,7 +111,6 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let g:NERDTreeWinSize = 25
 " 隐藏 []
 let g:NERDTreeGitStatusConcealBrackets = 1 
 let g:nerdtree_tabs_open_on_console_startup=1
@@ -157,13 +166,6 @@ let g:tagbar_type_go = {
 autocmd BufEnter * nested :call tagbar#autoopen(0)
 Plug 'preservim/nerdcommenter'
 
-" :w::WqPlug 'SirVer/ultisnips'
-""----------------------------------------------------------------------
-" 结束插件安装
-"----------------------------------------------------------------------
-
-
-
 "----------------------------------------------------------------------
 " coc.nvim
 "----------------------------------------------------------------------
@@ -203,10 +205,24 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
+
+"inoremap <silent><expr> <TAB>
+      "\ pumvisible() ? coc#_select_confirm() :
+      "\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      "\ <SID>check_back_space() ? "\<TAB>" :
+      "\ coc#refresh()
+
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
+
+let g:coc_snippet_next = '<tab>'
+
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -325,6 +341,9 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+"----------------------------------------------------------------------
+" coc plugins
+"----------------------------------------------------------------------
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
@@ -336,5 +355,13 @@ Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-sql', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
+Plug 'voldikss/coc-translator'
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" git sign
+Plug 'mhinz/vim-signify'
+" snippets
+Plug 'hyperq/vim-snippets'
+" 全局查找和替换插件
+Plug 'brooth/far.vim'
+" 调试
 call plug#end()
-

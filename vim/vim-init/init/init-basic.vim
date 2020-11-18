@@ -25,7 +25,6 @@ set bs=2
 
 
 " 关闭自动换行
-set nowrap
 
 " 打开功能键超时检测（终端下功能键为一串 ESC 开头的字符串）
 set ttimeout
