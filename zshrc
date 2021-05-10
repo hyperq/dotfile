@@ -81,6 +81,7 @@ plugins=(git
 	golang
 	npm
 	yarn
+    pip
 	vi-mode
 	vscode)
 
@@ -114,3 +115,4 @@ source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
 source "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 eval "$(starship init zsh)"
+export PATH="/usr/local/opt/luajit-openresty/bin:$PATH"

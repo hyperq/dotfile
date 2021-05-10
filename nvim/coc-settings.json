@@ -1,0 +1,12 @@
+{
+    "coc.preferences.formatOnSaveFiletypes": [
+        "javascript",
+        "vue",
+        "css",
+        "less",
+        "html"
+    ],
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "prettier.useTabs": true
+}

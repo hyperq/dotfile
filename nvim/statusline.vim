@@ -1,64 +1,4 @@
-"======================================================================
-" init-style.vim - 显示样式设置
-"======================================================================
-
-
-
-"----------------------------------------------------------------------
-" 显示设置
-"----------------------------------------------------------------------
-
-" 总是显示状态栏
-set laststatus=2
-
-" 总是显示行号
-set number
-
-" 总是显示侧边栏（用于显示 mark/gitdiff/诊断信息）
-set signcolumn=yes
-
-" 总是显示标签栏
-set showtabline=2
-
-" 设置显示制表符等隐藏字符
-set list
-
-" 右下角显示命令
-set showcmd
-
-" 插入模式在状态栏下面显示 -- INSERT --，
-" 先注释掉，默认已经为真了，如果这里再设置一遍会影响 echodoc 插件
-" set showmode
-
-" 水平切割窗口时，默认在右边显示新窗口
-set splitright
-
-
-"----------------------------------------------------------------------
-" 颜色主题：色彩文件位于 colors 目录中
-"----------------------------------------------------------------------
-if (empty($TMUX))
-  if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-" 设置黑色背景
-
-" 允许 256 色
-set t_Co=256
-
-
-
-"----------------------------------------------------------------------
 " 状态栏设置
-"----------------------------------------------------------------------
 set statusline=                                 " 清空状态了
 set statusline+=\ %F                            " 文件名
 set statusline+=\ [%1*%M%*%n%R%H]               " buffer 编号和状态
@@ -294,7 +234,3 @@ endfunction
 
 call s:init_colors()
 call s:start_timer()
-set background=light
-colorscheme github
-let g:airline_theme = "github"
-
